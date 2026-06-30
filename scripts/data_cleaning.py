@@ -15,7 +15,7 @@ df.drop_duplicates()
 
 # since we have only two columns with null values, replacing them with 'Unknown' value
 df['category_code'] = df['category_code'].fillna('unknown')
-df['brand'] = df['brand'].fillna('unknown')
+df['brand'] = df['brand'].fillna('unknown').str.capitalize()
 
 # checking 
 print(df.tail())
