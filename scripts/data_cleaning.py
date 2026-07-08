@@ -13,9 +13,15 @@ print(df.isnull())
 # dropping duplicates
 df.drop_duplicates()
 
-# since we have only two columns with null values, replacing them with 'Unknown' value
+# since there are only two columns with null values, replacing them with 'unknown' value
 df['category_code'] = df['category_code'].fillna('unknown')
 df['brand'] = df['brand'].fillna('unknown').str.capitalize()
+
+# adding a new column for category
+df['category'] = df['category_code'].str.split('.').str[0]
+
+# converting the date column to datetime format
+df['event_time'] = pd.to_datetime(df['event_time'].str.replace(' UTC', ''))
 
 # checking 
 print(df.tail())
