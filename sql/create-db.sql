@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS ecommerce_funnel
+    DEFAULT CHARACTER SET = 'utf8mb4';
