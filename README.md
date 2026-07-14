@@ -45,8 +45,11 @@ README.md
 
 *****
 # Data Cleaning
-`notebooks/00_data_cleaning.ipynb`
+Check `notebooks/00_data_cleaning.ipynb`
+
+<br>
 Original data:
+
 <table border="1">
   <tr>
     <th>event_time</th>
@@ -115,6 +118,8 @@ Original data:
     <td>c6bd7419-2748-4c56-95b4-8cec9ff8b80d</td>
   </tr>
 </table>
+
+<br>
 
 After cleaning the data:
 ```
@@ -239,14 +244,21 @@ A few examples from `notebooks/01_data_explore.ipynb`
   </tr>
 </table>
 
+<br>
+
 2. Stats:  
 - Minimum price: 0
 - Maximum price: 2574.07
 - Average price: 345.1
 - Median price: 193.03
 
+<br>
+
 3. Price distribution:
 <img width="858" height="533" alt="image" src="https://github.com/user-attachments/assets/6fb02d85-09d5-4e01-81b9-095079ac0f0d" />
+
+<br>
+<br>
 
 4. Number of Events by hour:
 <img width="1389" height="489" alt="image" src="https://github.com/user-attachments/assets/02350e9a-0161-4f5a-89e4-6cd3c9cda9b4" />
@@ -277,6 +289,8 @@ CREATE DATABASE IF NOT EXISTS ecommerce_funnel
 8. Current and previous price from products viewed by a user
 9. Checking if a user changed categories during two consecutive events
 
+<br>
+
 *Views*:
 1. Users who spent more than $500
 2. Total views per brand (more than 1000)
@@ -291,3 +305,5 @@ SQL Concepts used:
 - `CTEs`
 - `Views`
 - `Indexes`
+
+************
