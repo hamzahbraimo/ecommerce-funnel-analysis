@@ -80,3 +80,53 @@ WITH products AS (
 )
 SELECT * FROM products
 WHERE num BETWEEN 1 AND 10;
+
+
+-- 7. Consecutive views from a user
+SELECT
+    user_id,
+    event_time,
+    LEAD(event_time) OVER (ORDER BY event_time) AS nxt
+FROM events
+WHERE event_type = 'view'
+    AND user_id = '534109931';
+
+
+-- 8. Current and previous price from products viewed by a user
+WITH client_views AS (
+    SELECT
+        user_id,
+        brand,
+        category,
+        event_type,
+        LAG(price) OVER (PARTITION BY brand, category ORDER BY event_time) AS prev,
+        price AS current
+    FROM events
+)
+SELECT 
+    brand,
+    category,
+    prev,
+    current,
+    ROUND(prev - current, 2) AS difference
+FROM client_views
+WHERE event_type = 'view'
+    AND user_id = '534109931';
+
+
+-- 9. Checking if a user changed categories during two consecutive events
+WITH user_events AS (
+    SELECT
+        user_id,
+        event_time,
+        LAG(category) OVER(ORDER BY event_time) AS prvous,
+        category
+    FROM events
+)
+SELECT *,
+    CASE 
+        WHEN prvous != category THEN 'YES'  
+        ELSE  'NO'
+    END AS changed_categories
+FROM user_events
+WHERE user_id = '534109931';
