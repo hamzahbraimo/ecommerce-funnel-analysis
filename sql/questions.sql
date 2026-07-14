@@ -67,3 +67,16 @@ WITH events AS (
 )
 SELECT * FROM events 
 WHERE number = 1;
+
+
+-- 6. First 10 viewed products per category
+WITH products AS (
+    SELECT
+        brand,
+        category,
+        event_time,
+        ROW_NUMBER() OVER(PARTITION BY category ORDER BY event_time) AS num
+    FROM events
+)
+SELECT * FROM products
+WHERE num BETWEEN 1 AND 10;
