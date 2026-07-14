@@ -9,7 +9,6 @@ DOTENV_PATH = './.env'
 
 # load the dataset
 def load():
-
     df = pd.read_csv(FILE_PATH, parse_dates=['event_time'])
 
     print("Dataset loaded successfully.")
@@ -18,7 +17,6 @@ def load():
 
 # connect to the database
 def connect():
-
     load_dotenv(DOTENV_PATH)
 
     conn = mysql.connector.connect(
@@ -34,7 +32,6 @@ def connect():
 
 # cursor
 def get_cursor(conn):
-    
     cursor = conn.cursor()
     
     print("Cursor created.")
