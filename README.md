@@ -39,11 +39,13 @@ README.md
 6. Setup your own `.env` based the `.env.example`
 7. Run the files in the following order:
    - `notebooks/`: `00_data_cleaning.ipynb` -> `01_data_explore.ipynb`
+   - `sql/`: `create-db.sql`
    - `pipeline/`: `main.py`
-   - `sql/`: `create-db.sql` -> `schema-explore.sql` -> `indexes.sql` -> `questions.sql` -> `views.sql`
+   - `sql/`: `schema-explore.sql` -> `indexes.sql` -> `questions.sql` -> `views.sql`
 
 *****
 # Data Cleaning
+`notebooks/00_data_cleaning.ipynb`
 Original data:
 <table border="1">
   <tr>
@@ -208,3 +210,57 @@ df = df[
     <td>computers</td>
   </tr>
 </table>
+
+******
+# Data exploration
+A few examples from `notebooks/01_data_explore.ipynb`
+
+1. Event types:
+
+<table>
+  <tr>
+    <th>event_type</th>
+    <th>count</th>
+  </tr>
+
+  <tr>
+    <td>cart</td>
+    <td>7567</td>
+  </tr>
+
+  <tr>
+    <td>purchase</td>
+    <td>7644</td>
+  </tr>
+
+  <tr>
+    <td>view</td>
+    <td>326350</td>
+  </tr>
+</table>
+
+2. Stats:  
+- Minimum price: 0
+- Maximum price: 2574.07
+- Average price: 345.1
+- Median price: 193.03
+
+3. Price distribution:
+<img width="858" height="533" alt="image" src="https://github.com/user-attachments/assets/6fb02d85-09d5-4e01-81b9-095079ac0f0d" />
+
+4. Number of Events by hour:
+<img width="1389" height="489" alt="image" src="https://github.com/user-attachments/assets/02350e9a-0161-4f5a-89e4-6cd3c9cda9b4" />
+
+Peak hour: 8 AM
+
+*******
+# Data load pipeline:
+1. Creating the database:
+```
+CREATE DATABASE IF NOT EXISTS ecommerce_funnel
+    DEFAULT CHARACTER SET = 'utf8mb4';
+```
+2. Dataset loading using `pandas`
+3. Connect the database and create a cursor to execute queries
+4. Create the table `events` with the exact same column as the .csv file
+5. Insert rows, using chunks (`10000`) for a better memory management
