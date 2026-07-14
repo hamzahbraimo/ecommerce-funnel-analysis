@@ -4,7 +4,10 @@ WITH total_per_brand AS (
         brand,
         category,
         price,
-        DENSE_RANK() OVER(PARTITION BY category ORDER BY price DESC) AS ranking
+        DENSE_RANK() OVER (
+            PARTITION BY category 
+            ORDER BY price DESC
+        ) AS ranking
     FROM events
     WHERE brand != 'Unknown'
 )
@@ -18,7 +21,10 @@ WITH count_views AS (
         brand,
         category,
         COUNT(brand) AS nr_views,
-        DENSE_RANK() OVER(PARTITION BY category ORDER BY COUNT(brand) DESC) AS ranking
+        DENSE_RANK() OVER (
+            PARTITION BY category 
+            ORDER BY COUNT(brand) DESC
+        ) AS ranking
     FROM events
     WHERE brand != 'Unknown'
         AND event_type = 'view'
@@ -62,7 +68,10 @@ WHERE number = 1;
 -- 5. Last event per session
 WITH events AS (
     SELECT *,
-        ROW_NUMBER() OVER(PARTITION BY user_session ORDER BY event_time DESC) AS number   
+        ROW_NUMBER() OVER (
+            PARTITION BY user_session
+            ORDER BY event_time DESC
+        ) AS number   
     FROM events
 )
 SELECT * FROM events 
@@ -75,7 +84,10 @@ WITH products AS (
         brand,
         category,
         event_time,
-        ROW_NUMBER() OVER(PARTITION BY category ORDER BY event_time) AS num
+        ROW_NUMBER() OVER (
+            PARTITION BY category
+            ORDER BY event_time
+        ) AS num
     FROM events
 )
 SELECT * FROM products
@@ -99,7 +111,10 @@ WITH client_views AS (
         brand,
         category,
         event_type,
-        LAG(price) OVER (PARTITION BY brand, category ORDER BY event_time) AS prev,
+        LAG(price) OVER (
+            PARTITION BY brand, category 
+            ORDER BY event_time
+        ) AS prev,
         price AS current
     FROM events
 )
