@@ -1,5 +1,5 @@
 -- 1. The most expensive brands per category
-WITH total_por_brand AS (
+WITH total_per_brand AS (
     SELECT DISTINCT
         brand,
         category,
@@ -8,7 +8,7 @@ WITH total_por_brand AS (
     FROM events
     WHERE brand != 'Unknown'
 )
-SELECT * FROM total_por_brand
+SELECT * FROM total_per_brand
 WHERE ranking = 1;
 
 
