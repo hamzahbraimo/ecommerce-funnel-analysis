@@ -254,13 +254,40 @@ A few examples from `notebooks/01_data_explore.ipynb`
 Peak hour: 8 AM
 
 *******
-# Data load pipeline:
-1. Creating the database:
+# Data load pipeline
+1. Creating the database (`create-db.sql`):
 ```
 CREATE DATABASE IF NOT EXISTS ecommerce_funnel
     DEFAULT CHARACTER SET = 'utf8mb4';
 ```
-2. Dataset loading using `pandas`
+2. Dataset loading using `pandas` (`main.py`)
 3. Connect the database and create a cursor to execute queries
 4. Create the table `events` with the exact same column as the .csv file
 5. Insert rows, using chunks (`10000`) for a better memory management
+
+******
+# Questions answered in queries
+1. The most expensive brands per category
+2. The top 3 most viewed products per category
+3. Top 25 users with the most expending
+4. First viewed product per user in a session
+5. Last event per session
+6. First 10 viewed products per category
+7. Consecutive views from a user
+8. Current and previous price from products viewed by a user
+9. Checking if a user changed categories during two consecutive events
+
+*Views*:
+1. Users who spent more than $500
+2. Total views per brand (more than 1000)
+3. Average price per category ranked
+4. Last viewed product by user in a session
+5. Total purchased per category
+
+<br>
+
+SQL Concepts used:
+- `Window Functions` such as: `LEAD()`, `LAG()`, `RANK()`, `RANK_DENSE()` and `ROW_NUMBER()`
+- `CTEs`
+- `Views`
+- `Indexes`
